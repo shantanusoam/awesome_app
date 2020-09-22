@@ -2,7 +2,7 @@ import 'package:awesome_app/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../drawer.dart';
+import '../widgets/drawer.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
 
   getData() async {
     var res = await http.get(url);
-    data = jsonDecode(res.body);
+    var data = jsonDecode(res.body);
     print(data);
     setState(() {});
   }

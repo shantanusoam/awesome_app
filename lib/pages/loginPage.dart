@@ -1,4 +1,4 @@
-import 'package:awesome_app/bgimge.dart';
+import 'package:awesome_app/widgets/bgimge.dart';
 import 'package:awesome_app/utils/constants.dart';
 import 'package:flutter/material.dart';
 
