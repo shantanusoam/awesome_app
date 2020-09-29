@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../widgets/drawer.dart';
+// import 'package:gallery/l10n/gallery_localizations.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 class HomePageFB extends StatelessWidget {
   Future getData() async {
@@ -16,60 +18,87 @@ class HomePageFB extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
-      appBar: AppBar(
-        title: Text("Awesome App"),
-        actions: [
-          IconButton(
-              icon: Icon(Icons.exit_to_app),
-              onPressed: () {
-                Constants.prefs.setBool("LoggedIn", false);
-                Navigator.pushReplacementNamed(context, "/login");
-              })
-        ],
-      ),
-      body: FutureBuilder(
-          future: getData(),
-          builder: (context, snapshot) {
-            switch (snapshot.connectionState) {
-              case ConnectionState.none:
-                return Center(
-                  child: Text("Fetch Something"),
-                );
-              case ConnectionState.active:
-              case ConnectionState.waiting:
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              case ConnectionState.done:
-                if (snapshot.hasError) {
+        backgroundColor: Colors.grey[200],
+        appBar: AppBar(
+          title: Text("Awesome App"),
+          actions: [
+            IconButton(
+                icon: Icon(Icons.exit_to_app),
+                onPressed: () {
+                  Constants.prefs.setBool("LoggedIn", false);
+                  Navigator.pushReplacementNamed(context, "/login");
+                })
+          ],
+        ),
+        body: FutureBuilder(
+            future: getData(),
+            builder: (context, snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.none:
                   return Center(
-                    child: Text("Some error occured"),
+                    child: Text("Fetch Something"),
                   );
-                }
-                return ListView.builder(
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ListTile(
-                        title: Text(snapshot.data[index]["title"]),
-                        subtitle: Text("ID: ${snapshot.data[index]["id"]}"),
-                        leading: Image.network(snapshot.data[index]["url"]),
-                      ),
+                case ConnectionState.active:
+                case ConnectionState.waiting:
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                case ConnectionState.done:
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text("Some error occured"),
                     );
-                  },
-                  itemCount: snapshot.data.length,
-                );
-            }
-          }),
-      drawer: MyDrawer(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // myText = _nameController.text;
-          // setState(() {});
-        },
-        child: Icon(Icons.refresh),
-      ),
-    );
+                  }
+                  return ListView.builder(
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ListTile(
+                          title: Text(snapshot.data[index]["title"]),
+                          subtitle: Text("ID: ${snapshot.data[index]["id"]}"),
+                          leading: Image.network(snapshot.data[index]["url"]),
+                        ),
+                      );
+                    },
+                    itemCount: snapshot.data.length,
+                  );
+              }
+            }),
+        drawer: MyDrawer(),
+        floatingActionButton: SpeedDial(
+          animatedIcon: AnimatedIcons.menu_close,
+          animatedIconTheme: IconThemeData(size: 22),
+          backgroundColor: Color(0xFF801E48),
+          visible: true,
+          curve: Curves.bounceIn,
+          children: [
+            // FAB 1
+            SpeedDialChild(
+                child: Icon(Icons.assignment_turned_in),
+                backgroundColor: Color(0xFF801E48),
+                onTap: () {
+                  Navigator.pushReplacementNamed(context, "/voice");
+                },
+                label: 'voice',
+                labelStyle: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                    fontSize: 16.0),
+                labelBackgroundColor: Color(0xFF801E48)),
+            // FAB 2
+            SpeedDialChild(
+                onTap: () {
+                  // myText = _nameController.text;
+                  // setState(() {});
+                },
+                child: Icon(Icons.refresh),
+                label: 'Button 2',
+                labelStyle: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                    fontSize: 16.0),
+                labelBackgroundColor: Color(0xFF801E48))
+          ],
+        ));
   }
 }
