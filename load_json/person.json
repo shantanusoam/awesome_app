@@ -1,0 +1,51 @@
+[
+    {
+        "name": "ShantanuSoam",
+        "age": "21",
+        "height": "184",
+        "gender": "male",
+        "hai_color": "black"
+    },
+    {
+        "name": "abhishekh",
+        "age": "21",
+        "height": "172",
+        "gender": "male",
+        "hai_color": "black"
+    },
+    {
+        "name": "Ashish",
+        "age": "16",
+        "height": "194",
+        "gender": "male",
+        "hai_color": "black"
+    },
+    {
+        "name": "Adesh",
+        "age": "21",
+        "height": "183",
+        "gender": "male",
+        "hai_color": "black"
+    },
+    {
+        "name": "ayush",
+        "age": "21",
+        "height": "284",
+        "gender": "male",
+        "hai_color": "black"
+    },
+    {
+        "name": "Ishika",
+        "age": "21",
+        "height": "174",
+        "gender": "female",
+        "hai_color": "black"
+    },
+    {
+        "name": "priyank",
+        "age": "21",
+        "height": "154",
+        "gender": "male",
+        "hai_color": "black"
+    }
+]
